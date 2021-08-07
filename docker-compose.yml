@@ -56,3 +56,25 @@ services:
           Compose file multiline value 1
           Compose file multiline value 2
         _ARG0: Compose file arg unreceived
+
+  build2:
+    build:
+      context: .
+      dockerfile: Dockerfile3
+      args:
+        # PROXYはRUNには引き継がれるが、ENVには引き継がれない
+        HTTP_PROXY:   "http://compose.proxy:3128"
+        HTTPS_PROXY:  "https://compose.proxy:3128"
+        FTP_PROXY:    "ftp://compose.proxy:3128"
+        NO_PROXY:     "compose.noproxy1"
+        http_proxy:   "http://compose.proxy:8080"
+        https_proxy:  "https://compose.proxy:8080"
+        ftp_proxy:    "ftp://compose.proxy:8080"
+        no_proxy:     "compose.noproxy2"
+
+  build3:
+    extends:
+      service: build2
+    command:
+      - cat
+      - /env_dump.txt

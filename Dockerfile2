@@ -22,4 +22,4 @@ ENV DOCKERFILE_ARG8 ${_ARG8:-Dockerfile not received}
 ENV DOCKERFILE_ARG9 ${_ARG9:-Dockerfile not received}
 ENV DOCKERFILE_ARG0 ${_ARG0:-Dockerfile not received}
 
-CMD ["sh", "-c", "env|sort"]
+CMD ["sh", "-c", "env"]

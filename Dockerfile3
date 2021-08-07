@@ -1,0 +1,14 @@
+FROM alpine
+
+RUN env|sort > /env_dump.txt
+
+ENV HTTP_PROXY  ${HTTP_PROXY}
+ENV HTTPS_PROXY ${HTTPS_PROXY}
+ENV FTP_PROXY   ${FTP_PROXY}
+ENV NO_PROXY    ${NO_PROXY}
+ENV http_proxy  ${http_proxy}
+ENV https_proxy ${https_proxy}
+ENV ftp_proxy   ${ftp_proxy}
+ENV no_proxy    ${no_proxy}
+
+CMD ["sh", "-c", "env|sort"]
