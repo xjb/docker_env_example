@@ -1,0 +1,58 @@
+version: "3.9"
+services:
+  env0:
+    image: alpine
+    command:
+      - sh
+      - -c
+      - env|sort
+
+  env1:
+    extends:
+      service: env0
+    # .envファイルはComposeファイル内のみ展開可
+    environment:
+      _COMPOSE1: Compose file value 1
+      _COMPOSE2: ${_UNDEFINED}
+      # .envファイルの環境変数をコンテナに渡すには`environment:`で指定する
+      _COMPOSE3: ${_ENV1}
+      _COMPOSE4: |
+        compose file multiline value 1
+        compose file multiline value 2
+
+  env2:
+    extends:
+      service: env0
+    # `env_file:`で.envファイルの環境変数をコンテナにすべて渡せる
+    # 指定したファイルが存在しないとエラー
+    env_file:
+      - .env
+
+  env3:
+    extends:
+      service: env0
+    # 同名の環境変数は`env_file:`より`environment:`が優先される
+    environment:
+      _INHERITANCE1: override by Compose file
+    env_file:
+      - .env
+
+  build0:
+    build: .
+
+  build1:
+    extends:
+      service: build0
+    build:
+      dockerfile: Dockerfile2
+      args:
+        _ARG1: Compose file arg 1
+        _ARG2: ${_UNDEFINED}
+        _ARG3: ${_ENV1}
+        _ARG4: ${_ENV2:-Compose file default}
+        # _ARG5: ''
+        _ARG6: ''
+        _ARG9: |
+          Compose file multiline value 1
+          Compose file multiline value 2
+        _ARG0: Compose file arg unreceived

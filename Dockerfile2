@@ -1,0 +1,25 @@
+FROM alpine
+
+ARG _ARG1
+ARG _ARG2
+ARG _ARG3
+ARG _ARG4
+ARG _ARG5
+ARG _ARG6
+ARG _ARG7
+ARG _ARG8
+ARG _ARG9
+# ARG _ARG0
+
+ENV DOCKERFILE_ARG1 ${_ARG1:-Dockerfile not received}
+ENV DOCKERFILE_ARG2 ${_ARG2:-Dockerfile not received}
+ENV DOCKERFILE_ARG3 ${_ARG3:-Dockerfile not received}
+ENV DOCKERFILE_ARG4 ${_ARG4:-Dockerfile not received}
+ENV DOCKERFILE_ARG5 ${_ARG5:-Dockerfile not received}
+ENV DOCKERFILE_ARG6 ${_ARG6:-Dockerfile not received}
+ENV DOCKERFILE_ARG7 ${_ARG7:-Dockerfile not received}
+ENV DOCKERFILE_ARG8 ${_ARG8:-Dockerfile not received}
+ENV DOCKERFILE_ARG9 ${_ARG9:-Dockerfile not received}
+ENV DOCKERFILE_ARG0 ${_ARG0:-Dockerfile not received}
+
+CMD ["sh", "-c", "env|sort"]
